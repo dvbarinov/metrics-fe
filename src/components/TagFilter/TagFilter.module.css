@@ -1,0 +1,125 @@
+.tagFilter {
+    background: #1f2937;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #f3f4f6;
+}
+
+.clearBtn {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.clearBtn:hover {
+    background: #dc2626;
+}
+
+.loading {
+    color: #9ca3af;
+    text-align: center;
+    padding: 20px;
+}
+
+.tagsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.tagGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.tagLabel {
+    font-size: 14px;
+    color: #9ca3af;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.tagSelect {
+    background: #374151;
+    color: #f3f4f6;
+    border: 1px solid #4b5563;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.tagSelect:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.selectedTags {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #374151;
+}
+
+.selectedLabel {
+    color: #9ca3af;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.selectedTag {
+    display: inline-flex;
+    align-items: center;
+    background: #3b82f6;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 16px;
+    margin-right: 8px;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+.selectedTag strong {
+    margin-right: 4px;
+    font-weight: 600;
+}
+
+.removeTag {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.removeTag:hover {
+    background: rgba(255, 255, 255, 0.3);
+}

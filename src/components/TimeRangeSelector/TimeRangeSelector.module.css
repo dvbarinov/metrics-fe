@@ -1,0 +1,40 @@
+.timeRangeSelector {
+    margin-bottom: 20px;
+}
+
+.label {
+    font-size: 14px;
+    color: #9ca3af;
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 500;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.button {
+    background: #374151;
+    color: #f3f4f6;
+    border: 1px solid #4b5563;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.button:hover {
+    background: #4b5563;
+    border-color: #6b7280;
+}
+
+.button.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+}
