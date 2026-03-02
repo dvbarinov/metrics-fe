@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './MetricsSelector.module.css';
 
-const MetricSelector = ({ selectedService, selectedMetric, onServiceChange, onMetricChange }) => {
+const MetricsSelector = ({ selectedService, selectedMetric, onServiceChange, onMetricChange }) => {
     const services = ['api-gateway', 'auth-service', 'payment-service', 'user-service', 'notification-service'];
     const metrics = ['latency_ms', 'rps', 'error_rate', 'cpu_usage', 'memory_usage', 'response_time'];
 
@@ -55,4 +55,4 @@ const formatMetricName = (name) => {
     return map[name] || name;
 };
 
-export default MetricSelector;
+export default MetricsSelector;

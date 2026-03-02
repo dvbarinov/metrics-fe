@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import styles from './Dashboard.module.css';
 import MetricsSelector from '../MetricsSelector';
 import TagFilter from '../TagFilter';
@@ -15,39 +15,41 @@ const Dashboard = () => {
     const [selectedMetric, setSelectedMetric] = useState('latency_ms');
     const [selectedTags, setSelectedTags] = useState({});
     const [timeRange, setTimeRange] = useState(60);
+    const [liveStats, setLiveStats] = useState({});
 
-    // Данные из истории
-    const {  metricsData, loading, error, refetch } = useMetrics({
+    // Мемоизируем параметры для хуков
+    const metricsParams = useMemo(() => ({
         service_name: selectedService,
         metric_name: selectedMetric,
         last_minutes: timeRange,
         tags_filter: selectedTags,
-    });
+    }), [selectedService, selectedMetric, timeRange, selectedTags]);
 
-    // Статистика в реальном времени
-    const [liveStats, setLiveStats] = useState({});
+    const { data: metricsData, loading, error, refetch } = useMetrics(metricsParams);
 
-    // WebSocket для реальных данных
-    useWebSocket(
-        (message) => {
-            // Обновляем статистику в реальном времени
-            if (message.service_name === selectedService && message.metric_name === selectedMetric) {
-                setLiveStats(prev => ({
-                    ...prev,
-                    [JSON.stringify(message.tags || {})]: message,
-                }));
-            }
-        },
-        {
-            tagsFilter: selectedTags,
-            groupBy: Object.keys(selectedTags).length > 0 ? Object.keys(selectedTags) : null,
+    // Стабильная функция обработки сообщений
+    const handleWebSocketMessage = useCallback((message) => {
+        if (message.service_name === selectedService &&
+            message.metric_name === selectedMetric) {
+            setLiveStats(prev => ({
+                ...prev,
+                [JSON.stringify(message.tags || {})]: message,
+            }));
         }
-    );
+    }, [selectedService, selectedMetric]);
 
-    // Сброс статистики при смене метрики
+    // Мемоизируем параметры WebSocket
+    const wsOptions = useMemo(() => ({
+        tagsFilter: selectedTags,
+        groupBy: Object.keys(selectedTags).length > 0 ? Object.keys(selectedTags) : null,
+    }), [selectedTags]);
+
+    useWebSocket(handleWebSocketMessage, wsOptions);
+
+    // Сброс статистики только при смене ключевых параметров
     useEffect(() => {
         setLiveStats({});
-    }, [selectedService, selectedMetric, selectedTags]);
+    }, [selectedService, selectedMetric]);
 
     // Вычисляем агрегированную статистику
     const stats = useMemo(() => {
